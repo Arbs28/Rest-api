@@ -9,7 +9,9 @@ const {
     getCategoryById,
     newCategory,
     deleteCategory,
-} = require("../models/category")
+    updateCategory,
+} = require("../models/category");
+const category = require('../models/category');
 /*const router = express.Router();*/
 
 router.get("/allCategories", async (req, res) => {
@@ -51,5 +53,17 @@ router.delete("/deleteCategory/:id", async (req, res) => {
       res.status(400).json(err);
     }
   });
+
+  router.put('/update-category/:id',async(req,res)=>{
+    const id = req.params.id
+    const category = req.body
+    try{
+        const updateCategory = await Category.findByIdAndUpdate(id,category)
+        res.status(200).json(updateCategory)
+    }catch(er){
+        res.status(400).json(er)
+    }
+    
+})
 
   module.exports = router;
