@@ -6,14 +6,67 @@ provider:
   region: eu-central-1
   memorySize: 128
 functions:
-  app:
-    handler: index.handler
-    events: 
-      - http: 
-          path: /
-          method: ANY
+  getProducts:
+    handler: handler.getProducts
+    events:
+      - http:
+          path: products
+          method: get
           cors: true
-      - http: 
-          path: /{proxy+}
-          method: ANY
+  postProduct:
+    handler: handler.postProduct
+    events:
+      - http:
+          path: newProduct
+          method: post
           cors: true
+  updateProducts:
+    handler: handler.updateProducts
+    events:
+      - http:
+          path: products/put/{id}
+          method: put
+          cors: true
+  deleteProduct:
+    handler: handler.deleteProduct
+    events:
+      - http: 
+          path: product/delete/{id}
+          method: delete
+          cors: true
+
+  getAllCategories:
+    handler: handler.getAllCategories
+    events:
+      - http:
+          path: categories
+          method: get
+          cors: true
+  postCategories:
+    handler: handler.postCategories
+    events:
+      - http:
+          path: newCategory
+          method: post
+          cors: true
+  updateCategory:
+    handler: handler.updateCategory
+    events:
+      - http:
+          path: category/put/{id}
+          method: put
+          cors: true
+  deleteCategory:
+    handler: handler.deleteCategory
+    events:
+      - http:
+          path: category/delete/{id}
+          method: delete
+          cors: true
+plugins:
+  - serverless-offline
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+
+package:
+  individually: true
