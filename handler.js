@@ -30,7 +30,6 @@ module.exports.getProducts = async (event, context, callback) => {
     if (!products) {
       callback(null, createErrorResponse(404, "No product Found."));
     }
-
     return {
       statusCode: 200,
       headers: {
